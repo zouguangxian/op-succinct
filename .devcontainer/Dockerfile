@@ -39,7 +39,7 @@ curl -L https://sp1up.succinct.xyz | bash
 EOF
 
 # Install additional Rust tools
-RUN cargo install cargo-watch cargo-nextest cargo-expand cargo-edit
+RUN cargo install just cargo-watch cargo-nextest cargo-expand cargo-edit
 
 # Set environment variables
 ENV PATH="/root/.foundry/bin:/root/.sp1/bin:${PATH}"
