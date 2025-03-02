@@ -1,0 +1,64 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/rust
+{
+	"name": "OP Succinct Development",
+	// Use Dockerfile for building the image
+	"build": {
+		// Path is relative to the devcontainer.json file.
+		"dockerfile": "Dockerfile"
+	},
+
+	// Features to add to the dev container
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": "true",
+			"configureZshAsDefaultShell": "true",
+			"installOhMyZsh": "true",
+			// username should be root and installOhMyZshConfig should be false to avoid overwriting .zshrc in the base image
+			"username": "root",
+			"installOhMyZshConfig": "false"
+		},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			// Docker Compose v2 is required for or compatible with the repository
+			"dockerDashComposeVersion": "v2.29.1",
+			// https://github.com/devcontainers/features/issues/573#issuecomment-1593854983
+			"moby": false
+		}
+	},
+
+    // Use 'mounts' to make the cargo cache persistent in a Docker Volume.
+    "mounts": [
+    	{
+    		"source": "devcontainer-cargo-cache-${devcontainerId}",
+    		"target": "/usr/local/cargo",
+    		"type": "volume"
+    	}
+    ],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"rust-lang.rust-analyzer",
+				"tamasfe.even-better-toml",
+				"serayuzgur.crates",
+				"vadimcn.vscode-lldb",
+				"github.copilot"
+			]
+		}
+	},
+
+	// Connect as root user
+    "remoteUser": "root",
+	
+	// Set environment variables
+	"remoteEnv": {
+		"RUST_BACKTRACE": "1"
+	}
+}
